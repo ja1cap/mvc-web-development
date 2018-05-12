@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AdManager001.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="nav navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+        @if (User.IsInRole("ADMIN") || User.IsInRole("PUBLISHER"))
+        {
+            <li><a asp-area="" asp-controller="Zones" asp-action="Index">Зоны</a></li>
+        }
+        @if (User.IsInRole("ADMIN") || User.IsInRole("ADVERTISER"))
+        {
+            <li><a asp-area="" asp-controller="Campaigns" asp-action="Index">Кампании</a></li>
+        }
+    }
+    else
+    {
+    }
+</ul>
+
