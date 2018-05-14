@@ -12,6 +12,10 @@
         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
         @if (User.IsInRole("ADMIN") || User.IsInRole("PUBLISHER"))
         {
+            <li><a asp-area="" asp-controller="Websites" asp-action="Index">Веб-сайты</a></li>
+        }
+        @if (User.IsInRole("ADMIN") || User.IsInRole("PUBLISHER"))
+        {
             <li><a asp-area="" asp-controller="Zones" asp-action="Index">Зоны</a></li>
         }
         @if (User.IsInRole("ADMIN") || User.IsInRole("ADVERTISER"))

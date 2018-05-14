@@ -1,4 +1,4 @@
-﻿@model AdManager001.Models.Zone
+﻿@model AdManager001.Models.Website
 
 @{
     ViewData["Title"] = "Добавление";
@@ -7,15 +7,16 @@
 
 <h2>Добавление</h2>
 
-<h4>Зона</h4>
+<h4>Веб-сайт</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WebsiteId" class="control-label"></label>
-                <select asp-for="WebsiteId" class="form-control" asp-items="ViewBag.WebsiteId"></select>
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,14 +24,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AdPlacementWidth" class="control-label"></label>
-                <input asp-for="AdPlacementWidth" class="form-control" />
-                <span asp-validation-for="AdPlacementWidth" class="text-danger"></span>
+                <label asp-for="ContactName" class="control-label"></label>
+                <input asp-for="ContactName" class="form-control" />
+                <span asp-validation-for="ContactName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AdPlacementHeight" class="control-label"></label>
-                <input asp-for="AdPlacementHeight" class="form-control" />
-                <span asp-validation-for="AdPlacementHeight" class="text-danger"></span>
+                <label asp-for="ContactEmail" class="control-label"></label>
+                <input asp-for="ContactEmail" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

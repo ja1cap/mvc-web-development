@@ -1,0 +1,43 @@
+﻿@model AdManager001.Models.Website
+
+@{
+    ViewData["Title"] = "Информация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Информация</h2>
+
+<div>
+    <h4>Веб-сайт</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContactEmail)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Редактирование</a> |
+    <a asp-action="Index">Вернуться к списку</a>
+</div>

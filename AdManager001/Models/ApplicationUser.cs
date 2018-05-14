@@ -9,7 +9,8 @@ namespace AdManager001.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        public virtual ICollection<Zone> Zones { get; set; }
         public virtual ICollection<Campaign> Campaigns { get; set; }
+        public virtual ICollection<Zone> Zones { get; set; }
+        public virtual ICollection<Website> Websites { get; set; }
     }
 }

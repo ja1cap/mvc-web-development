@@ -26,5 +26,7 @@ namespace AdManager001.Data
         public DbSet<AdManager001.Models.Zone> Zone { get; set; }
 
         public DbSet<AdManager001.Models.Campaign> Campaign { get; set; }
+
+        public DbSet<AdManager001.Models.Website> Website { get; set; }
     }
 }

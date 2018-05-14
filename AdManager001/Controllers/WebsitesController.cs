@@ -7,18 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdManager001.Data;
 using AdManager001.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace AdManager001.Controllers
 {
-    [Authorize]
-    public class ZonesController : Controller
+    public class WebsitesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ZonesController(
+        public WebsitesController(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager)
         {
@@ -26,24 +24,24 @@ namespace AdManager001.Controllers
             _userManager = userManager;
         }
 
-        // GET: Zones
+        // GET: Websites
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
             var isAdmin = await _userManager.IsInRoleAsync(user, "ADMIN");
-            IQueryable<Zone> zones;
+            IQueryable<Website> websites;
             if (!isAdmin)
             {
-                zones = _context.Zone.Where(z => z.UserId.Equals(user.Id));
-            } else
-            {
-                zones = _context.Zone;
+                websites = _context.Website.Where(w => w.UserId.Equals(user.Id));
             }
-            zones = zones.Include(z => z.Website);
-            return View(await zones.ToListAsync());
+            else
+            {
+                websites = _context.Website;
+            }
+            return View(await websites.ToListAsync());
         }
 
-        // GET: Zones/Details/5
+        // GET: Websites/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,44 +49,45 @@ namespace AdManager001.Controllers
                 return NotFound();
             }
 
-            var zone = await _context.Zone
+            var website = await _context.Website
+                //.Include(w => w.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (zone == null)
+            if (website == null)
             {
                 return NotFound();
             }
 
-            return View(zone);
+            return View(website);
         }
 
-        // GET: Zones/Create
+        // GET: Websites/Create
         public IActionResult Create()
         {
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "ID", "Name");
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Zones/Create
+        // POST: Websites/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,WebsiteId,Name,AdPlacementWidth,AdPlacementHeight")] Zone zone)
+        public async Task<IActionResult> Create([Bind("ID,UserId,Url,Name,ContactName,ContactEmail")] Website website)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                zone.User = user;
+                website.User = user;
 
-                _context.Add(zone);
+                _context.Add(website);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "ID", "Name", zone.WebsiteId);
-            return View(zone);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", website.UserId);
+            return View(website);
         }
 
-        // GET: Zones/Edit/5
+        // GET: Websites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,23 +95,23 @@ namespace AdManager001.Controllers
                 return NotFound();
             }
 
-            var zone = await _context.Zone.SingleOrDefaultAsync(m => m.ID == id);
-            if (zone == null)
+            var website = await _context.Website.SingleOrDefaultAsync(m => m.ID == id);
+            if (website == null)
             {
                 return NotFound();
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "ID", "Name", zone.WebsiteId);
-            return View(zone);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", website.UserId);
+            return View(website);
         }
 
-        // POST: Zones/Edit/5
+        // POST: Websites/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,WebsiteId,Name,AdPlacementWidth,AdPlacementHeight")] Zone zone)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserId,Url,Name,ContactName,ContactEmail")] Website website)
         {
-            if (id != zone.ID)
+            if (id != website.ID)
             {
                 return NotFound();
             }
@@ -121,12 +120,12 @@ namespace AdManager001.Controllers
             {
                 try
                 {
-                    _context.Update(zone);
+                    _context.Update(website);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ZoneExists(zone.ID))
+                    if (!WebsiteExists(website.ID))
                     {
                         return NotFound();
                     }
@@ -137,11 +136,11 @@ namespace AdManager001.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "ID", "Name", zone.WebsiteId);
-            return View(zone);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", website.UserId);
+            return View(website);
         }
 
-        // GET: Zones/Delete/5
+        // GET: Websites/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,30 +148,31 @@ namespace AdManager001.Controllers
                 return NotFound();
             }
 
-            var zone = await _context.Zone
+            var website = await _context.Website
+                //.Include(w => w.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (zone == null)
+            if (website == null)
             {
                 return NotFound();
             }
 
-            return View(zone);
+            return View(website);
         }
 
-        // POST: Zones/Delete/5
+        // POST: Websites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var zone = await _context.Zone.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Zone.Remove(zone);
+            var website = await _context.Website.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Website.Remove(website);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ZoneExists(int id)
+        private bool WebsiteExists(int id)
         {
-            return _context.Zone.Any(e => e.ID == id);
+            return _context.Website.Any(e => e.ID == id);
         }
     }
 }

@@ -6,18 +6,25 @@ using System.Threading.Tasks;
 
 namespace AdManager001.Models
 {
-    public class Zone
+    public class Website
     {
         public int ID { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-        public int WebsiteId { get; set; }
-        public Website Website { get; set; }
+        public virtual ICollection<Zone> Zones { get; set; }
+        [Required]
+        [Url]
+        public string Url { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public int AdPlacementWidth { get; set; }
+        public string ContactName { get; set; }
         [Required]
-        public int AdPlacementHeight { get; set; }
+        [EmailAddress]
+        public string ContactEmail { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
