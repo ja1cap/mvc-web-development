@@ -11,9 +11,10 @@ using System;
 namespace AdManager001.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180514075234_CampaignBudgetRevenueInt")]
+    partial class CampaignBudgetRevenueInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +77,7 @@ namespace AdManager001.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BannerImageHeight");
+                    b.Property<int>("BannerImageHieght");
 
                     b.Property<string>("BannerImageUrl")
                         .IsRequired();

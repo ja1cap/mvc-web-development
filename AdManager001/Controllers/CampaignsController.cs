@@ -74,7 +74,7 @@ namespace AdManager001.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,UserId")] Campaign campaign)
+        public async Task<IActionResult> Create([Bind("ID,Name,UserId,Revenue,Budget,Currency,BannerImageUrl,BannerImageWidth,BannerImageHeight,ClickUrl")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace AdManager001.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,UserId")] Campaign campaign)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,UserId,Revenue,Budget,Currency,BannerImageUrl,BannerImageWidth,BannerImageHeight,ClickUrl")] Campaign campaign)
         {
             if (id != campaign.ID)
             {

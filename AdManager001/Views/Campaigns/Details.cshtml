@@ -17,6 +17,35 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Revenue) @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Budget) @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClickUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClickUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BannerImageUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BannerImageUrl)
+            (@Html.DisplayFor(model => model.BannerImageWidth) x @Html.DisplayFor(model => model.BannerImageHeight))
+            <br />
+            <a href="@Model.ClickUrl" target="_blank">
+                <img src="@Model.BannerImageUrl" width="@Model.BannerImageWidth" height="@Model.BannerImageHeight" />
+            </a>
+        </dd>
         @*
         <dt>
             @Html.DisplayNameFor(model => model.User)
